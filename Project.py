@@ -80,7 +80,7 @@ menu()
 
 input_choice = input("Enter option: ")
 
-while input_choice != "4":
+while input_choice != "5":
     if input_choice == "1":
         
         add_task(tasks)
@@ -91,6 +91,7 @@ while input_choice != "4":
 
         edit_task(tasks)
     elif input_choice == "4":
+        
         help()
     else:
         print("Invalid option. Please try again.")
