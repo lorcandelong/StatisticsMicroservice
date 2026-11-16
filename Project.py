@@ -1,13 +1,14 @@
 
-
+import requests
 
 def menu():
     print("\nWelcome to the Task Manager! \nChoose an option:")
     print("1. Add a task")
     print("2. View tasks")
     print("3. Edit tasks")
-    print("4. Help")
-    print("5. Exit")
+    print("4. Analytics")
+    print("5. Help")
+    print("6. Exit")
 
 def help():
     print("\nHelp:")
@@ -72,6 +73,27 @@ def edit_task(tasks):
     except ValueError:
         print("Please enter a valid number.")
 
+def analytics(tasks):
+
+    try:
+        response = requests.post(
+            "http://localhost:5001/statistics",
+            json={"tasks": tasks}
+        )
+
+        if response.status_code == 200:
+            statistics = response.json()
+
+            print("\nTask Statistics:")
+            print(f"Total Tasks: {statistics['total_tasks']}")
+            print(f"Completed Tasks: {statistics['completed_tasks']}")
+            print(f"Incomplete Tasks: {statistics['incomplete_tasks']}")
+
+        else:
+            print("Unable to retrieve statistics.")
+
+    except requests.exceptions.ConnectionError:
+        print("Analytics service is unavailable. Please start the service.")
 
 
 tasks = []
@@ -80,7 +102,7 @@ menu()
 
 input_choice = input("Enter option: ")
 
-while input_choice != "5":
+while input_choice != "6":
     if input_choice == "1":
         
         add_task(tasks)
@@ -92,6 +114,8 @@ while input_choice != "5":
         edit_task(tasks)
     elif input_choice == "4":
         
+        analytics(tasks)
+    elif input_choice == "5":
         help()
     else:
         print("Invalid option. Please try again.")
