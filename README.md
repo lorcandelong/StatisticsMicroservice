@@ -30,22 +30,23 @@ if response.status_code == 200:
 
 UML sequence diagrams:
 
-participant TM as Task Manager
-participant SM as Statistics Microservice
+sequenceDiagram
+    participant TM as Task Manager
+    participant SM as Statistics Microservice
 
-TM->>SM: POST /statistics
-Note right of TM: JSON containing tasks<br/>and completed status
+    TM->>SM: POST /statistics
+    Note right of TM: JSON containing tasks<br/>and completed status
 
-SM->>SM: Receive and parse JSON
-SM->>SM: Count total tasks
-SM->>SM: Count completed tasks
-SM->>SM: Calculate incomplete tasks
+    SM->>SM: Receive and parse JSON
+    SM->>SM: Count total tasks
+    SM->>SM: Count completed tasks
+    SM->>SM: Calculate incomplete tasks
 
-SM-->>TM: HTTP 200 OK
-Note left of SM: JSON containing<br/>total_tasks, completed_tasks,<br/>incomplete_tasks
+    SM-->>TM: HTTP 200 OK
+    Note left of SM: JSON containing<br/>total_tasks, completed_tasks,<br/>incomplete_tasks
 
-TM->>TM: Parse JSON response
-TM->>TM: Display statistics
+    TM->>TM: Parse JSON response
+    TM->>TM: Display statistics
 
 participant PM as Password Manager
 participant SM as Statistics Microservice
