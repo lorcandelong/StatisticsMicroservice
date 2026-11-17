@@ -48,20 +48,3 @@ sequenceDiagram
     TM->>TM: Parse JSON response
     TM->>TM: Display statistics
 
-participant PM as Password Manager
-participant SM as Statistics Microservice
-
-PM->>SM: POST /password-statistics
-Note right of PM: JSON containing password<br/>strength ratings
-
-SM->>SM: Receive and parse JSON
-SM->>SM: Count total passwords
-SM->>SM: Count weak passwords
-SM->>SM: Count medium passwords
-SM->>SM: Count strong passwords
-
-SM-->>PM: HTTP 200 OK
-Note left of SM: JSON containing total,<br/>weak, medium, and<br/>strong password counts
-
-PM->>PM: Parse JSON response
-PM->>PM: Display password statistics
